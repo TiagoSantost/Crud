@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<title>Cadastro de Usuário</title>
+</h:head>
+<h:body>
+		
+	<h:form>
+		<h:commandLink value="Administração" action="primeirapagina" style="margin-left:1cm;"  rendered="#{pessoaBean.permiteAcesso('Administrador')}" />
+		<h:commandLink value="Trocar Usuário" action="index" style="margin-left:1cm;"/>
+	</h:form>
+
+
+	<h:form id="formPessoa" rendered="#{pessoaBean.permiteAcesso('Administrador')}">
+		
+		<h:panelGrid columns="2">
+			<f:facet name="header">
+			<h:outputText value="Cadastro de usuario"/>
+			</f:facet>
+		<h:outputLabel value="ID:"/>
+		<h:inputText value="#{pessoaBean.pessoa.id}" readonly="true"/>
+			
+		<h:outputLabel value="Nome:"/>
+		<h:inputText value="#{pessoaBean.pessoa.nome}"/>
+		
+		
+		<h:outputLabel value="Sobrenome:"/>
+		<h:inputText value="#{pessoaBean.pessoa.sobrenome}"/>
+		
+		
+		<h:outputLabel value="idade:"/>
+		<h:inputText value="#{pessoaBean.pessoa.idade}"/>
+		
+		
+			<h:outputLabel for="email" value="Email" />
+			<h:inputText id="email" value="#{pessoaBean.pessoa.email}" validatorMessage="Email Inválido!">
+			<f:validateRegex pattern="(.+[@].+[.].+)" />		
+		</h:inputText>
+		
+
+		
+		<h:outputLabel value="Sexo" for="sexo"/>
+			<h:selectOneRadio id="sexo" value="#{pessoaBean.pessoa.sexo}">
+			<f:selectItems value="#{pessoaBean.sexos}" var="s" itemLabel="#{s.nome}"/>
+		</h:selectOneRadio>
+			
+		<h:outputLabel value="Login:"/>
+		<h:inputText value="#{pessoaBean.pessoa.login}"/>
+		
+		<h:outputLabel value="Senha:"/>
+		<h:inputSecret value="#{pessoaBean.pessoa.senha}"/>
+		
+		<h:outputLabel value="Perfil:"/>
+		<h:selectOneMenu id="perfil" value="#{pessoaBean.pessoa.perfilUser}" required="false">
+			<f:selectItem itemValue="NAO" itemLabel="-Selecione-" noSelectionOption="true"/>
+			<f:selectItem itemValue="Administrador" />
+			<f:selectItem itemValue="Secretario" />
+		</h:selectOneMenu>
+	
+		
+		<h:outputLabel/>
+	<h:panelGroup>
+		<h:commandButton action="#{pessoaBean.novo}" value="Novo" image="/resources/img/adicionar-usuario.png" title="Novo Usuario"  style="margin-left:1cm;"/> 
+		<h:commandButton action="#{pessoaBean.salvarPagina}" value="Salvar" image="/resources/img/salvar-usuario.png" title="Salvar"  style="margin-left:1cm;" />
+		<h:commandButton action="#{pessoaBean.remove}" value="Remover"  image="/resources/img/deletar-usuario.png" style="margin-left:1cm;" title="Deletar" />
+		<h:commandButton value="Limpar" type="reset" image="/resources/img/limpar-usuario.png" title="Limpar"  style="margin-left:1cm;"/>
+	</h:panelGroup>
+	
+	</h:panelGrid>
+		
+		
+		<h:dataTable value="#{pessoaBean.pessoas}" var="pessoa" border="2" cellpadding="5">
+		
+		<f:facet name="header">
+			Lista de Usuários Cadastrados
+		</f:facet>
+		
+			<h:column>
+				<f:facet name="header">ID</f:facet>
+				<h:outputText value="#{pessoa.id}"/>
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">Nome</f:facet>
+				<h:outputText value="#{pessoa.nome}"/>
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">Sobrenome</f:facet>
+				<h:outputText value="#{pessoa.sobrenome}"/>
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">Editar</f:facet>
+				<h:commandLink>
+					<f:setPropertyActionListener value="#{pessoa}" target="#{pessoaBean.pessoa}" />
+					<h:graphicImage value="/resources/img/editar-usuario.png"/>
+				</h:commandLink>
+			</h:column>
+			
+			<h:column>	
+				<f:facet name="header">Excluir</f:facet>
+				<h:commandLink action="#{pessoaBean.remove}" title="Excluir">
+					<f:setPropertyActionListener value="#{pessoa}" target="#{pessoaBean.pessoa}" />
+					<h:graphicImage value="/resources/img/deletar-usuario.png"/>
+				</h:commandLink>
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">Telefones</f:facet>
+				<h:commandLink immediate="true" 
+					action="lancamento.jsf" id="botaofone">
+					<h:graphicImage url="resources/img/phone-usuario.png" width="25" height="25"/>
+					<f:param name="codigouser" value="#{usuario.id}"/>
+				</h:commandLink>
+			</h:column>
+			
+		
+		</h:dataTable>
+	</h:form>
+</h:body>
+</html>

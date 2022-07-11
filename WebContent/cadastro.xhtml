@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core">
+
+
+<h:head>
+	<title>Tela Cadastro</title>
+</h:head>
+<h:body>
+
+		
+
+		<h:form id="formCadastro" style="margin-top:20%; margin-left:40%;">
+		
+		<h:panelGrid columns="2">
+		<h:outputLabel value="Login:"/>
+		<h:inputText value="#{pessoaBean.pessoa.login}"/>
+		
+		<h:outputLabel value="Senha:"/>
+		<h:inputSecret value="#{pessoaBean.pessoa.senha}"/>
+		</h:panelGrid>
+		
+		<h:panelGrid>
+		<h:outputLabel value="Perfil do Usuario" for="perfil"/>
+			<h:selectOneRadio id="perfil" value="#{pessoaBean.pessoa.perfilUser}">
+			<f:selectItems value="#{pessoaBean.perfil}" var="p" itemLabel="#{p.nome}"/>
+		</h:selectOneRadio>
+		</h:panelGrid>
+		
+		<h:commandButton action="#{pessoaBean.salvar}" value="Cadastrar"  title="Cadastrar"  style="margin-left:1cm;" />
+
+		
+		
+		</h:form>
+		
+		
+				
+		
+		
+
+</h:body>
+</html>
