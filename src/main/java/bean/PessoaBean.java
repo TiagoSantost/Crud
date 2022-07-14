@@ -5,12 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import dao.DaoGeneric;
+import dao.DaoUsuario;
 import entidades.PerfilUser;
 import entidades.Pessoa;
 import entidades.Sexo;
@@ -23,7 +25,7 @@ import repositorio.IDaoPessoaImpl;
 public class PessoaBean {
 
 	private Pessoa pessoa = new Pessoa();
-	private DaoGeneric<Pessoa> daoGeneric = new DaoGeneric<Pessoa>();
+	private DaoUsuario<Pessoa> daoGeneric = new DaoUsuario<Pessoa>();
 	private List<Pessoa> pessoas = new ArrayList<Pessoa>();
 	private IDaoPessoa iDaoPessoa = new IDaoPessoaImpl();
 
@@ -32,15 +34,19 @@ public class PessoaBean {
 	
 	public String salvar() {
 		pessoa = daoGeneric.merge(pessoa);
+		pessoas.add(pessoa);
 		carregarPessoas();
 		return "index.xhtml";
 	}
 	
+	
 	public String salvarPagina() {
 		pessoa = daoGeneric.merge(pessoa);
+		pessoas.add(pessoa);
 		carregarPessoas();
 		return "";
 	}
+	
 	
 	public String novo() {
 		pessoa = new Pessoa();
@@ -50,10 +56,19 @@ public class PessoaBean {
 	
 
 	public String remove() {
-		daoGeneric.deletePorId(pessoa);
-		pessoa = new Pessoa();
-		carregarPessoas();
-		return "";
+	
+		try {
+			daoGeneric.removerUsuario(pessoa);
+			pessoas.remove(pessoa);
+			pessoa = new Pessoa();
+			
+
+		} catch (Exception e) {
+				e.printStackTrace();
+			}
+		
+			return "";
+		
 	}
 	
 	@PostConstruct
@@ -109,9 +124,7 @@ public class PessoaBean {
 	}
 
 
-	public void setDaoGeneric(DaoGeneric<Pessoa> daoGeneric) {
-		this.daoGeneric = daoGeneric;
-	}
+	
 
 	public List<Pessoa> getPessoas() {
 		return pessoas;

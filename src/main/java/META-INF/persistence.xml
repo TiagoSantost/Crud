@@ -7,6 +7,7 @@
 			<provider>org.hibernate.ejb.HibernatePersistence</provider>
 			<class>entidades.Pessoa</class>
 			<class>entidades.Lancamento</class>
+			<class>entidades.TelefoneUser</class>
 			
 			
 			<properties>

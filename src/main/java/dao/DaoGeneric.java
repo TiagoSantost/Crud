@@ -23,6 +23,7 @@ public class DaoGeneric<E> {
 	}
 	
 
+
 	
 	public E merge(E entidade) {
 		EntityManager entityManager = JPAUtil.geEntityManager();
@@ -54,8 +55,12 @@ public class DaoGeneric<E> {
 		
 		Object id = JPAUtil.getPrimaryKey(entidade);
 		
-		entityManager.createQuery("delete from " + entidade.getClass().getCanonicalName()
-		+ " where id = " + id).executeUpdate();
+		entityManager
+		.createNativeQuery(
+				"delete from " + entidade.getClass(). 
+				getSimpleName().toLowerCase() + " where id =" + id)
+		.executeUpdate();
+
 		
 		entityTransaction.commit();;
 		entityManager.close();
@@ -77,6 +82,5 @@ public class DaoGeneric<E> {
 	public EntityManager getEntityManager() {
 		return entityManager;
 	}
-
 	
 }

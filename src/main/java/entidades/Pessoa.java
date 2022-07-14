@@ -2,6 +2,7 @@ package entidades;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
@@ -40,9 +41,22 @@ public class Pessoa implements Serializable{
 	
 	private String perfilUser;
 	
+	@OneToMany(cascade = CascadeType.REMOVE)
+	private List<TelefoneUser> telefoneUser;
 	
 
 	
+
+
+	public List<TelefoneUser> getTelefoneUsers() {
+		return telefoneUser;
+	}
+
+
+	public void setTelefoneUsers(List<TelefoneUser> telefoneUsers) {
+		this.telefoneUser = telefoneUsers;
+	}
+
 
 	public String getEmail() {
 		return email;
@@ -132,6 +146,13 @@ public class Pessoa implements Serializable{
 	public int hashCode() {
 		return Objects.hash(id);
 	}
+	
+	@Override
+	public String toString() {
+		return "UsuarioPessoa [id=" + id + ", nome=" + nome + ", sobrenome=" + sobrenome + ", " + ", login=" + login
+				+ ", senha=" + senha + ", idade=" + idade + "]";
+	}
+
 	
 
 	@Override
