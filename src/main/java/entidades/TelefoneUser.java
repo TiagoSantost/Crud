@@ -23,15 +23,17 @@ public class TelefoneUser implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@Column(nullable = false)
+
 	private String tipo;
 
-	@Column(nullable = false)
+	
 	private String numero;
 
 	@ManyToOne(optional = false, cascade = CascadeType.REMOVE)
 	private Pessoa usuarioPessoa;
 
+	
+	
 	public Long getId() {
 		return id;
 	}

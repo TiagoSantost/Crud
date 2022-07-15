@@ -38,6 +38,10 @@ public class PessoaBean {
 		carregarPessoas();
 		return "index.xhtml";
 	}
+	public String cancelarPagina() {
+		return "index.xhtml";
+	}
+	
 	
 	
 	public String salvarPagina() {

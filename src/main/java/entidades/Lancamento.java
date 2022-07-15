@@ -1,6 +1,7 @@
 package entidades;
 
 import java.io.Serializable;
+
 import java.util.Objects;
 
 import javax.persistence.CascadeType;
@@ -9,11 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import org.hibernate.annotations.ForeignKey;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+
 
 @Entity
 public class Lancamento implements Serializable {
@@ -25,12 +23,17 @@ public class Lancamento implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	private String numero;
+	private String nota;
 	
-	private String operadora;
+	private String destino;
 	
 	@ManyToOne(optional = false, cascade = CascadeType.REMOVE)
 	private Pessoa usuario;
+	
+	
+	
+
+
 
 	public Long getId() {
 		return id;
@@ -41,20 +44,22 @@ public class Lancamento implements Serializable {
 	}
 
 
-	public String getNumero() {
-		return numero;
+	
+
+	public String getNota() {
+		return nota;
 	}
 
-	public void setNumero(String numero) {
-		this.numero = numero;
+	public void setNota(String nota) {
+		this.nota = nota;
 	}
 
-	public String getOperadora() {
-		return operadora;
+	public String getDestino() {
+		return destino;
 	}
 
-	public void setOperadora(String operadora) {
-		this.operadora = operadora;
+	public void setDestino(String destino) {
+		this.destino = destino;
 	}
 
 	public Pessoa getUsuario() {

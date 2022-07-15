@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	  xmlns:h="http://java.sun.com/jsf/html"
-	  xmlns:f="http://java.sun.com/jsf/core">
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:p="http://primefaces.org/ui">
 
 
 <h:head>
@@ -14,24 +15,35 @@
 
 		<h:form id="formCadastro" style="margin-top:20%; margin-left:40%;">
 		
-		<h:panelGrid columns="2">
-		<h:outputLabel value="Login:"/>
-		<h:inputText value="#{pessoaBean.pessoa.login}"/>
+		<p:panelGrid columns="2">
+		<p:outputLabel value="Login:"/>
+		<p:inputText value="#{pessoaBean.pessoa.login}"/>
 		
-		<h:outputLabel value="Senha:"/>
-		<h:inputSecret value="#{pessoaBean.pessoa.senha}"/>
-		</h:panelGrid>
+		<p:outputLabel value="Senha:"/>
+		<p:password value="#{pessoaBean.pessoa.senha}"/>
 		
-		<h:panelGrid>
-		<h:outputLabel value="Perfil do Usuario" for="perfil"/>
-			<h:selectOneRadio id="perfil" value="#{pessoaBean.pessoa.perfilUser}">
-			<f:selectItems value="#{pessoaBean.perfil}" var="p" itemLabel="#{p.nome}"/>
-		</h:selectOneRadio>
-		</h:panelGrid>
+		<p:outputLabel value="Perfil:"/>
+		<p:selectOneMenu id="perfil" value="#{pessoaBean.pessoa.perfilUser}" required="false">
+			<f:selectItem itemValue="NAO" itemLabel="-Selecione-" noSelectionOption="true"/>
+			<f:selectItem itemValue="Administrador" itemLabel="Administrador" />
+		</p:selectOneMenu>
 		
-		<h:commandButton action="#{pessoaBean.salvar}" value="Cadastrar"  title="Cadastrar"  style="margin-left:1cm;" />
+		<p:commandButton value="Cadastrar" action="#{pessoaBean.salvar}"
+			ajax="false" style="margin-left:1cm;"></p:commandButton>
+		
+		<p:commandButton value="Cancelar" action="#{pessoaBean.cancelarPagina}"
+			ajax="false" style="margin-left:1cm;"></p:commandButton>
+	
+	</p:panelGrid>
+		
+	
+		
+		
+		 
+		
 
 		
+	
 		
 		</h:form>
 		

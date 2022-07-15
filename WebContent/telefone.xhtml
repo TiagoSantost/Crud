@@ -8,82 +8,80 @@
 
 <h:body>
 
-	
+
 	<h:form>
-		<h:commandLink value="Administração" action="primeirapagina" style="margin-left:1cm;"  rendered="#{pessoaBean.permiteAcesso('Administrador')}" />
-		<h:commandLink value="Trocar Usuário" action="index" style="margin-left:1cm;"/>
+		<p:breadCrumb>
+			<p:menuitem />
+			<p:menuitem value="Controle" action="primeirapagina.jsf" />
+		</p:breadCrumb>
 	</h:form>
 
-	<h:form id="formTelefone">
+	<h:form id="formulario">
+		<p:messages showDetail="true" showSummary="false" id="msg" />
+
+		<h:panelGrid columns="2">
+
+			<p:outputLabel>Usuario: </p:outputLabel>
+			<p:outputLabel value="#{telefoneBean.telefone.usuarioPessoa.nome}" />
+
+			<p:outputLabel>Número:</p:outputLabel>
+			<p:inputText value="#{telefoneBean.telefone.numero}" required="true"  requiredMessage="Numero obrigatório"/>
+
+			<p:outputLabel>Operadora:</p:outputLabel>
+			<p:inputText value="#{telefoneBean.telefone.tipo}" required="true" requiredMessage="Tipo obrigatório"/>
+
+		</h:panelGrid>
+		<br />
+		<br />
 		
-			<h:panelGrid columns="2">
-				<f:facet name="header">
-					<h:outputText value="Telefone"/>
-				</f:facet>
-				
-				<h:outputLabel value="ID:"/>
-				<h:inputText value="#{telefoneBean.telefone.id}" readonly="true"/>
-				
-				<h:outputLabel value="Numero de Telefone"/>
-				<h:inputText value="#{telefoneBean.telefone.numero}"/>
-				
-				<h:outputLabel value="Operadora:"/>
-				<h:inputText value="#{telefoneBean.telefone.tipo}"/>
-				
-				
-				<h:outputLabel/>
-				<h:panelGroup>
-					<h:commandButton action="#{telefoneBean.novo}" value="Novo" image="/resources/img/adicionar-usuario.png" title="Novo Usuario" style="margin-left:1cm;"/> 
-					<h:commandButton action="#{telefoneBean.salvar}" value="Salvar" image="/resources/img/salvar-usuario.png" title="Salvar"  style="margin-left:1cm;"/>
-					<h:commandButton action="#{telefoneBean.remover}" image="/resources/img/deletar-usuario.png" value="Remover" style="margin-left:1cm;" />
-					<h:commandButton value="Limpar" type="reset" image="/resources/img/limpar-usuario.png" title="Limpar"  style="margin-left:1cm;"/>
-				</h:panelGroup>
-			</h:panelGrid>
+		<p:commandButton value="Novo Telefone" action="#{telefoneBean.novo()}"
+			ajax="false"></p:commandButton>
+		<p:commandButton value="Salvar Telefone" action="#{telefoneBean.salvar()}"
+			ajax="false"></p:commandButton>
+		<br />
+		<br />
+	</h:form>
+
+	<h:form id="formTelefones">
+		<p:dataTable value="#{telefoneBean.telefones}"
+			var="fone" id="tabelFone">
+
+			<p:column style="width:150px;">
+				<f:facet name="header">Id</f:facet>
+				<h:outputText value="#{fone.usuarioPessoa.nome}" />
+			</p:column>
+
+			<p:column>
+				<f:facet name="header">Número</f:facet>
+				<h:outputText value="#{fone.numero}" />
+			</p:column>
+
+			<p:column>
+				<f:facet name="header">Tipo</f:facet>
+				<h:outputText value="#{fone.tipo}" />
+			</p:column>
 			
-			
-			<h:dataTable value="#{telefoneBean.telefones}" var="tel" border="2" cellpadding="5">
-				<f:facet name="header">Lista de Lançamentos</f:facet>
-				
-				<h:column>
-					<f:facet name="header">Usuario</f:facet>
-					<h:outputLabel value="#{tel.usuarioPessoa.nome}"/>
-				</h:column> 
-				
-				
-				<h:column>
-					<f:facet name="header">Numero</f:facet>
-					<h:outputLabel value="#{tel.numero}"/>
-				</h:column> 
-				
-				<h:column>
-					<f:facet name="header">Operadora</f:facet>
-					<h:outputLabel value="#{tel.tipo}"/>
-				</h:column> 
-				
-				
-				
-				
-				
-				<h:column>
-					<f:facet name="header">Editar</f:facet>
-					<h:commandLink title="Editar">
-						<h:graphicImage value="/resources/img/editar-usuario.png"/>
-						<f:setPropertyActionListener value="#{tel}" target="#{telefoneBean.telefone}" />
-					</h:commandLink>
-				</h:column> 
-				
-				<h:column >
-					<f:facet name="header">Excluir</f:facet>
-					<h:commandLink action="#{telefoneBean.remover}" title="Excluir">
-						<f:setPropertyActionListener value="#{tel}" target="#{telefoneBean.telefone}" />
-						<h:graphicImage value="/resources/img/deletar-usuario.png"/>
-					</h:commandLink>
-				</h:column> 
-				
-			</h:dataTable>
-		
-	
-			
+			<p:column>
+				<f:facet name="header">Editar</f:facet>
+				<h:commandLink title="Editar">
+						<h:graphicImage value="/resources/img/editar-usuario.png" width="25" height="25"/>
+						<f:setPropertyActionListener value="#{fone}" target="#{telefoneBean.telefone}" />
+				</h:commandLink>
+			</p:column>
+
+
+			<p:column>
+				<f:facet name="header">Delete</f:facet>
+				<h:commandLink immediate="true"
+					action="#{telefoneBean.remover}" id="botaoremover">
+					<h:graphicImage url="resources/img/deletar-usuario.png" width="25"
+						height="25" />
+					<f:setPropertyActionListener value="#{fone}"
+						target="#{telefoneBean.telefone}" />
+				</h:commandLink>
+			</p:column>
+
+		</p:dataTable>
 	</h:form>
 
 </h:body>

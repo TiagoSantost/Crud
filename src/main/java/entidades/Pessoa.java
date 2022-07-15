@@ -1,14 +1,14 @@
 package entidades;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
+
 import java.util.List;
 import java.util.Objects;
 
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,6 +23,7 @@ public class Pessoa implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	
 	
 	private String nome;
 	
@@ -41,12 +42,10 @@ public class Pessoa implements Serializable{
 	
 	private String perfilUser;
 	
+
 	@OneToMany(cascade = CascadeType.REMOVE)
 	private List<TelefoneUser> telefoneUser;
 	
-
-	
-
 
 	public List<TelefoneUser> getTelefoneUsers() {
 		return telefoneUser;

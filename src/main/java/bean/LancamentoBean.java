@@ -1,7 +1,7 @@
 package bean;
 
 import java.util.ArrayList;
-import java.util.Collection;
+
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -13,8 +13,10 @@ import javax.faces.context.FacesContext;
 import dao.DaoGeneric;
 import entidades.Lancamento;
 import entidades.Pessoa;
+
 import repositorio.IDaoLancamento;
 import repositorio.IDaoLancamentoImpl;
+
 
 @ViewScoped
 @ManagedBean(name = "lancamentoBean")
@@ -24,6 +26,8 @@ public class LancamentoBean {
 	private DaoGeneric<Lancamento> daoGeneric = new DaoGeneric<Lancamento>();
 	private List<Lancamento> lancamentos = new ArrayList<Lancamento>();
 	private IDaoLancamento daoLancamento = new IDaoLancamentoImpl();
+
+	
 	
 	
 	public String salvar(){
@@ -39,6 +43,7 @@ public class LancamentoBean {
 		return "";
 	}
 
+	
 	@PostConstruct
 	private void carregarLancamentos() {
 		FacesContext context = FacesContext.getCurrentInstance();
